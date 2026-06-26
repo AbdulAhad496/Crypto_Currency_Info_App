@@ -1,4 +1,4 @@
-package com.example.scratchlearning.presentation.coin_list
+package com.example.scratchlearning.presentation.coin_detail
 
 import com.example.scratchlearning.domain.model.Coin
 import com.example.scratchlearning.domain.model.CoinDetail

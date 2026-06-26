@@ -14,8 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.scratchlearning.presentation.Screen
+import com.example.scratchlearning.presentation.coin_detail.CoinDetailScreen
+import com.example.scratchlearning.presentation.coin_list.CoinListScreen
 import com.example.scratchlearning.ui.theme.ScratchLearningTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +31,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             ScratchLearningTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
-
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.CoinListScreen.route
+                    ){
+                        composable(route = Screen.CoinListScreen.route){
+                            CoinListScreen(navController)
+                        }
+                        composable(route = Screen.CoinDetailScreen.route + "/{coinId}"){
+                            CoinDetailScreen()
+                        }
+                    }
                 }
             }
         }

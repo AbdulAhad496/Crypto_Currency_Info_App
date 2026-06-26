@@ -17,11 +17,12 @@ import javax.inject.Inject
 class CoinListViewModel @Inject constructor(
     private val getCoinsUseCase: GetCoinsUseCase
 ): ViewModel(){
+    private val _state = mutableStateOf(CoinListState())
+    val state : State<CoinListState> = _state
+
     init {
         getCoins()
     }
-    private val _state = mutableStateOf(CoinListState())
-    val state : State<CoinListState> = _state
 
     private fun getCoins(){
         getCoinsUseCase().onEach { result ->

@@ -1,4 +1,4 @@
-package com.example.scratchlearning.presentation.coin_list
+package com.example.scratchlearning.presentation.coin_detail
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -19,13 +19,15 @@ class CoinDetailViewModel @Inject constructor(
     private val getCoinUseCase: GetCoinUseCase,
     private val savedStateHandle : SavedStateHandle
 ): ViewModel(){
+    private val _state = mutableStateOf(CoinDetailState())
+    val state : State<CoinDetailState> = _state
+
     init {
         savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
             getCoin(coinId)
         }
     }
-    private val _state = mutableStateOf(CoinDetailState())
-    val state : State<CoinDetailState> = _state
+
     private fun getCoin(coinId: String){
         getCoinUseCase(coinId).onEach { result ->
             when (result){
